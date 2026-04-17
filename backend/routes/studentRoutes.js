@@ -1,15 +1,41 @@
 const router = require('express').Router();
 const { protect, authorize } = require('../middleware/authMiddleware');
 const Student = require('../models/Student');
+const Internship = require('../models/Internship');
 
 router.use(protect);
 router.get('/my-students', authorize('mentor'), async (req, res) => {
   try {
-    const students = await Student.find({ mentor: req.user._id })
-      .populate('user', 'name email')
-      .populate('mentor', 'name email');
+    // 1. Find all approved/in-progress/completed internships for this mentor
+    const internships = await Internship.find({ 
+      mentor: req.user._id, 
+      status: { $in: ['approved', 'In Progress', 'completed'] } 
+    })
+      .populate('student', 'name email');
 
-    res.json(students);
+    // 2. Get the unique student details
+    const results = [];
+    const seen = new Set();
+
+    for (const i of internships) {
+      if (!i.student) continue;
+      const studentId = i.student._id.toString();
+      
+      // If we haven't seen this student for this mentor yet, add their profile
+      if (!seen.has(studentId)) {
+        const profile = await Student.findOne({ user: i.student._id });
+        if (profile) {
+          results.push({
+            ...profile.toObject(),
+            user: i.student,
+            internshipDomain: i.domain // Show the domain specific to this mentor's assignment
+          });
+          seen.add(studentId);
+        }
+      }
+    }
+
+    res.json(results);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

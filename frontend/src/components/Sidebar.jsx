@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { 
   FaChartBar, FaFileUpload, FaBuilding, FaPenNib, FaFileAlt, FaTrophy, 
-  FaUserGraduate, FaStar, FaClipboardList, FaUsers, FaUserPlus 
+  FaUserGraduate, FaStar, FaClipboardList, FaUsers, FaUserPlus, FaCheckCircle
 } from 'react-icons/fa';
 
 const MENUS = {
@@ -12,13 +12,14 @@ const MENUS = {
     { to: '/my-internship',   icon: <FaBuilding />, label: 'My Internship' },
     { to: '/submit-report',  icon: <FaPenNib />, label: 'Submit Report' },
     { to: '/reports',        icon: <FaFileAlt />, label: 'My Reports' },
+    { to: '/final-submission', icon: <FaCheckCircle />, label: 'Internship Completion Certificate' },
     { to: '/my-scorecard',   icon: <FaTrophy />, label: 'My Scorecard' },
   ],
   mentor: [
     { to: '/dashboard',        icon: <FaChartBar />, label: 'Dashboard' },
     { to: '/my-students',      icon: <FaUserGraduate />, label: 'My Students' },
     { to: '/reports',          icon: <FaFileAlt />, label: 'Student Reports' },
-    { to: '/evaluate',         icon: <FaStar />, label: 'Evaluate' },
+    { to: '/final-evaluations', icon: <FaCheckCircle />, label: 'Final Evaluations' },
   ],
   admin: [
     { to: '/dashboard',      icon: <FaChartBar />, label: 'Dashboard' },
@@ -26,6 +27,7 @@ const MENUS = {
     { to: '/students',       icon: <FaUserGraduate />, label: 'All Students' },
     { to: '/reports',        icon: <FaFileAlt />, label: 'All Reports' },
     { to: '/allot-mentors',  icon: <FaUserPlus />, label: 'Allot Mentors' },
+    { to: '/system-evaluations', icon: <FaCheckCircle />, label: 'System Evaluations' },
   ],
 };
 

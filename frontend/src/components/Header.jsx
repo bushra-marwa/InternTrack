@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { FaGraduationCap, FaSignOutAlt, FaRocket, FaFileAlt } from 'react-icons/fa';
+import NotificationBell from './NotificationBell';
 
 export default function Header() {
   const { user, logout } = useAuth();
@@ -47,6 +48,7 @@ export default function Header() {
       </nav>
 
       <div className="flex items-center gap-4">
+        {user && <NotificationBell />}
         {user && (
           <div className="flex items-center gap-3 bg-white/5 px-3 py-1.5 rounded-2xl border border-white/5">
             <div className="hidden sm:block text-right">

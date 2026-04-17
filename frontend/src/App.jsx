@@ -17,11 +17,13 @@ import MyScorecard from './pages/student/MyScorecard';
 import MyInternship from './pages/student/MyInternship';
 import PostInternship from './pages/student/PostInternship'
 import SubmitInternship from './pages/student/SubmitInternship';
+import FinalSubmission from './pages/student/FinalSubmission';
 
 // Mentor
 import MentorDashboard from './pages/mentor/MentorDashboard';
 import MyStudents from './pages/mentor/MyStudents';
 import StudentReports from './pages/mentor/StudentReports';
+import MentorEvaluations from './pages/mentor/MentorEvaluations';
 // import EvaluateStudents from './pages/mentor/EvaluateStudents';
 //import AttendanceView from './pages/mentor/AttendanceView';
 // import ReviewReports from './pages/mentor/ReviewReports';
@@ -34,6 +36,7 @@ import InternshipRequests from './pages/admin/InternshipRequests'
 //import GenerateScorecard from './pages/admin/GenerateScorecard';
 //import MarkAttendance from './pages/admin/MarkAttendance';
 import AllotMentors from './pages/admin/AllotMentors';
+import AdminEvaluations from './pages/admin/AdminEvaluations';
 
 import Footer from './components/Footer';
 
@@ -62,7 +65,7 @@ function AppLayout({ children, allowedRoles }) {
   if (allowedRoles && !allowedRoles.includes(user.role))
     return <Navigate to="/dashboard" />;
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)]">
+    <div className="flex min-h-[calc(100vh-4rem)]">
       <Sidebar />
       <main className="flex-1 p-6 overflow-y-auto bg-[#07071a]">{children}</main>
     </div>
@@ -78,7 +81,7 @@ export default function App() {
         }} />
         <div className="min-h-screen bg-[#07071a] flex flex-col">
           <Header />
-          <div className="flex-1">
+          <div className="flex-1 pt-16">
             <Routes>
               {/* Public */}
               <Route path="/" element={<Home />} />
@@ -98,14 +101,17 @@ export default function App() {
               <Route path="/my-internship" element={<AppLayout allowedRoles={['student']}><MyInternship /></AppLayout>} />
               <Route path="/post-internship" element={<AppLayout allowedRoles={['student']}><PostInternship /></AppLayout>} />
               <Route path="/submit-internship" element={<AppLayout allowedRoles={['student']}><SubmitInternship /></AppLayout>} />
+              <Route path="/final-submission" element={<AppLayout allowedRoles={['student']}><FinalSubmission /></AppLayout>} />
               {/* Mentor only */}
               <Route path="/my-students" element={<AppLayout allowedRoles={['mentor']}><MyStudents /></AppLayout>} />
-              {/* <Route path="/evaluate" element={<AppLayout allowedRoles={['mentor']}><EvaluateStudents /></AppLayout>} /> */}
+              <Route path="/final-evaluations" element={<AppLayout allowedRoles={['mentor']}><MentorEvaluations /></AppLayout>} />
+              <Route path="/evaluate" element={<AppLayout allowedRoles={['mentor']}><MentorEvaluations /></AppLayout>} />
               {/* <Route path="/mentor/reports" element={<ReviewReports />} /> */}
 
               {/* Admin only */}
               <Route path="/internship-requests" element={<AppLayout allowedRoles={['admin']}><InternshipRequests /></AppLayout>} />
               <Route path="/allot-mentors" element={<AppLayout allowedRoles={['admin']}><AllotMentors /></AppLayout>} />
+              <Route path="/system-evaluations" element={<AppLayout allowedRoles={['admin']}><AdminEvaluations /></AppLayout>} />
 
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

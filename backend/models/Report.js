@@ -8,6 +8,7 @@ const reportSchema = new mongoose.Schema({
   title: String,
   summary: String,
   link: String,
+  documentFile: String,
 
   status: {
     type: String,

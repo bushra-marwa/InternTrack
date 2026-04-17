@@ -20,7 +20,18 @@ const internshipSchema = new mongoose.Schema({
   default: ''
 },
 
-  rejectionReason: { type: String, default: '' }
+  rejectionReason: { type: String, default: '' },
+
+  // Final Evaluation Fields
+  finalCertificate: { type: String, default: null },
+  finalSummary: { type: String, default: '' },
+  finalScore: { type: Number, default: 0 },
+  finalMentorFeedback: { type: String, default: '' },
+  finalEvaluationStatus: {
+    type: String,
+    enum: ['none', 'pending', 'completed'],
+    default: 'none'
+  }
 
 }, { timestamps: true });
 
