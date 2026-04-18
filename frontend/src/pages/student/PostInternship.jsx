@@ -24,12 +24,7 @@ export default function PostInternship() {
       const fd = new FormData();
       Object.entries(form).forEach(([k, v]) => fd.append(k, v));
       if (file) fd.append('offerLetter', file);
-      await api.post('/internships', fd, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      await api.post('/internships', fd);
       toast.success('Internship submitted for approval!');
       navigate('/my-internship');
     } catch (err) {
