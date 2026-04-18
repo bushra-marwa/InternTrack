@@ -10,10 +10,17 @@ const {
 } = require('../controllers/reportController')
 
 const { protect, authorize } = require('../middleware/authMiddleware')
+const fs = require('fs')
+
+// Ensure uploads directory exists (Crucial for deployed environments)
+const uploadDir = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // file upload
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
+  destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) =>
     cb(null, Date.now() + path.extname(file.originalname))
 })
