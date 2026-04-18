@@ -18,7 +18,7 @@ if (!fs.existsSync('uploads')) {
 }
 
 app.use(cors({
-  origin: '*',
+  origin: true, // This safely reflects the caller's origin if they are using Vercel
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
